@@ -236,6 +236,7 @@ def parse_data(data, my_decode_flag, my_caesar_flag):
     if my_caesar_flag:
         for i in range(1, 256):
             my_answers.append(["Caesar_%d" % i, repr(''.join([chr((ord(c) + i) % 256) for c in data]))])
+            my_answers.append(["xor_%d" % i, repr(''.join([chr((ord(c) ^ i) % 256) for c in data]))])
 
     return my_answers
 
