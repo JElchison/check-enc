@@ -29,7 +29,7 @@ Python script that uses character frequency analysis to determine likely encodin
 # Prerequisites
 To install necessary prerequisites on Ubuntu:
 
-    sudo apt-get install python-yenc
+    sudo apt-get install python3-yenc
 
 
 # Usage

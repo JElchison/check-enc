@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 # Name:  check-enc.py
 # Purpose:  Attempts to decode/encode unknown data
@@ -55,10 +55,10 @@ logs['z'] = math.log(0.00050, 2)
 
 
 def print_help():
-    print """Purpose:  Attempts to decode/encode unknown data
+    print("""Purpose:  Attempts to decode/encode unknown data
 
 Prereq:   Python package 'yenc'.  On Debian systems, this can be installed
-          using `sudo apt-get install python-yenc`
+          using `sudo apt-get install python3-yenc`
 
 Usage:    checkenc.py [-d|-e] [-1] [-a] [-v] -f <file>
               reads data from file
@@ -88,14 +88,14 @@ Output:   One row is displayed for each result.  There are three columns in
                   is a Caesar cipher with each byte incremented by XXX.
               3)  Result after de/encoding.  Special characters will be escaped
                   appropriately.
-    """ % numResults
+    """ % numResults)
 
 
 def calculate_entropy(data):
     score = 0
     for char in data:
         try:
-            score += logs[char.lower()]
+            score += logs[chr(char).lower()]
         except:
             # not a character.  subtract arbitrary amount from score.
             score -= 100
@@ -111,51 +111,51 @@ def parse_data(data, my_decode_flag, my_caesar_flag):
             try:
                 result = data.decode(name)
                 if verbose_flag:
-                    print "%s succeeded" % name
-                my_answers.append([name, repr(result)])
+                    print("%s succeeded" % name)
+                my_answers.append([name, str.encode(result)])
             except Exception as ex:
                 if verbose_flag:
-                    print "%s FAILED: %s" % (name, ex)
+                    print("%s FAILED: %s" % (name, ex))
 
         name = 'base32'
         try:
             result = base64.b32decode(data)
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'uuencode'
         try:
             result = binascii.a2b_uu(data)
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'quotable'
         try:
             result = binascii.a2b_qp(data)
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'binhex4'
         try:
             result = binascii.rledecode_hqx(binascii.a2b_hqx(data))
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'yenc'
         try:
@@ -163,11 +163,11 @@ def parse_data(data, my_decode_flag, my_caesar_flag):
             decoder.feed(data)
             result = decoder.getDecoded()
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
     else:
 
@@ -175,51 +175,51 @@ def parse_data(data, my_decode_flag, my_caesar_flag):
             try:
                 result = data.encode(name)
                 if verbose_flag:
-                    print "%s succeeded" % name
-                my_answers.append([name, repr(result)])
+                    print("%s succeeded" % name)
+                my_answers.append([name, str.encode(result)])
             except Exception as ex:
                 if verbose_flag:
-                    print "%s FAILED: %s" % (name, ex)
+                    print("%s FAILED: %s" % (name, ex))
 
         name = 'base32'
         try:
             result = base64.b32encode(data)
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'uuencode'
         try:
             result = binascii.b2a_uu(data)
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'quotable'
         try:
             result = binascii.b2a_qp(data)
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'binhex4'
         try:
             result = binascii.b2a_hqx(binascii.rlecode_hqx(data))
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
         name = 'yenc'
         try:
@@ -227,16 +227,16 @@ def parse_data(data, my_decode_flag, my_caesar_flag):
             encoder.feed(data)
             result = encoder.getEncoded()
             if verbose_flag:
-                print "%s succeeded" % name
-            my_answers.append([name, repr(result)])
+                print("%s succeeded" % name)
+            my_answers.append([name, str.encode(result)])
         except Exception as ex:
             if verbose_flag:
-                print "%s FAILED: %s" % (name, ex)
+                print("%s FAILED: %s" % (name, ex))
 
     if my_caesar_flag:
         for i in range(1, 256):
-            my_answers.append(["Caesar_%d" % i, repr(''.join([chr((ord(c) + i) % 256) for c in data]))])
-            my_answers.append(["xor_%d" % i, repr(''.join([chr((ord(c) ^ i) % 256) for c in data]))])
+            my_answers.append(["Caesar_%d" % i, bytearray([((c + i) % 256) for c in data])])
+            my_answers.append(["xor_%d" % i, bytearray([((c ^ i) % 256) for c in data])])
 
     return my_answers
 
@@ -275,10 +275,10 @@ for arg in sys.argv[1:]:
         if is_file:
             in_filename = arg
         else:
-            in_data = arg
+            in_data = str.encode(arg)
 
 if is_file is True:
-    in_file = open(in_filename, 'r')
+    in_file = open(in_filename, 'rb')
     in_data = in_file.read()
     in_file.close()
 
@@ -286,7 +286,7 @@ if is_file is True:
 answers = parse_data(in_data, decode_flag, True)
 
 if two_passes:
-    print "First pass complete.  Now trying permutating each result..."
+    print("First pass complete.  Now trying permutating each result...")
     # try "2-dimensional" operation (perform parse_data() on each answer)
     answers_orig = copy.copy(answers)
     for answer in answers_orig:
@@ -300,7 +300,7 @@ if two_passes:
         answers.extend(newAnswers)
 
 if verbose_flag:
-    print '======================================================================'
+    print('======================================================================')
 
 for answer in answers:
     try:
@@ -311,10 +311,10 @@ for answer in answers:
 
 sortedAnswers = sorted(answers, key=lambda my_answer: my_answer[2])
 if print_all:
-    print "All %d results, worst to best:" % len(sortedAnswers)
+    print("All %d results, worst to best:" % len(sortedAnswers))
     for answer in sortedAnswers:
-        print "%.2f <%s> %s" % (answer[2], answer[0], answer[1])
+        print("%.2f <%s> %s" % (answer[2], answer[0], repr(answer[1])))
 else:
-    print "Top %d results, worst to best:" % numResults
+    print("Top %d results, worst to best:" % numResults)
     for answer in sortedAnswers[len(sortedAnswers) - numResults + 1:]:
-        print "%.2f <%s> %s" % (answer[2], answer[0], answer[1])
+        print("%.2f <%s> %s" % (answer[2], answer[0], repr(answer[1])))
